@@ -5,13 +5,113 @@
 :root {
   --color-accent: #E8503E;
   --color-dark: #1A1A2E;
+  --color-terminal-bg: #0d1117;
+  --color-terminal-panel: #12151c;
+  --color-terminal-border: #2a2f3a;
+  --color-terminal-text: #d6deeb;
+  --color-terminal-green: #4ade80;
+  --color-terminal-dim: #6b7280;
 }
 
 body {
   margin: 0;
   padding: 0;
-  background: #FFFFFF;
-  color: var(--color-dark);
+  background: var(--color-terminal-bg);
+  color: var(--color-terminal-text);
+}
+
+/* ── CRT-Scanlines-Overlay ── */
+
+.crt-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.025) 0px,
+    rgba(255, 255, 255, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
+
+.crt-vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 49;
+  box-shadow: inset 0 0 180px rgba(0, 0, 0, 0.75);
+}
+
+/* ── Terminal-Fenster ── */
+
+.terminal-window {
+  background: var(--color-terminal-panel);
+  border: 1px solid var(--color-terminal-border);
+  border-radius: 10px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 40px rgba(232, 80, 62, 0.08);
+  overflow: hidden;
+}
+
+.terminal-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #161a23;
+  border-bottom: 1px solid var(--color-terminal-border);
+}
+
+.terminal-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.terminal-dot--red {
+  background: #ff5f57;
+}
+
+.terminal-dot--yellow {
+  background: #febc2e;
+}
+
+.terminal-dot--green {
+  background: #28c840;
+}
+
+.terminal-titlebar-label {
+  margin: 0 auto;
+  font-size: 12px;
+  color: var(--color-terminal-dim);
+  letter-spacing: 0.02em;
+}
+
+/* ── Blinkender Cursor ── */
+
+@keyframes blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 0.15em;
+  background: var(--color-terminal-green);
+  vertical-align: -0.15em;
+  animation: blink 1s step-end infinite;
 }
 
 /* ── Shimmer-Effekt für das Motto ── */
@@ -28,13 +128,13 @@ body {
 .shimmer-text {
   background: linear-gradient(
     90deg,
-    var(--color-dark) 0%,
-    #6B7280 20%,
+    var(--color-terminal-green) 0%,
+    #a7f3d0 20%,
     var(--color-accent) 40%,
     #F97066 50%,
     var(--color-accent) 60%,
-    #6B7280 80%,
-    var(--color-dark) 100%
+    #a7f3d0 80%,
+    var(--color-terminal-green) 100%
   );
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -51,4 +151,23 @@ body {
   height: 4px;
   background: var(--color-accent);
   border-radius: 2px;
+}
+
+/* ── "Works on my machine"-Stempel ── */
+
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid var(--color-terminal-green);
+  color: var(--color-terminal-green);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+  box-shadow: 0 0 16px rgba(74, 222, 128, 0.25);
+  background: rgba(74, 222, 128, 0.06);
 }

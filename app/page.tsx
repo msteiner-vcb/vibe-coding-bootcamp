@@ -7,7 +7,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <div className="flex-1 flex items-center justify-center px-6">
+      <div className="crt-overlay" />
+      <div className="crt-vignette" />
+
+      <div className="flex-1 flex items-center justify-center px-6 py-16">
         {motto ? <ShimmerQuote text={motto} /> : <Welcome />}
       </div>
 

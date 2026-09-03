@@ -160,4 +160,3 @@ git pull origin <branch-name>
 > ⚠️ Fertig - Noch Fragen?
 
 
-
